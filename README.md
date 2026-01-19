@@ -1,13 +1,4 @@
-项目名建议：**payLite**  
-你的仓库地址：https://github.com/wangyifan349/payLite
-
----
-
-# README.md
-
-```markdown
-# payLite
-
+# AlipayLite
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 **AlipayLite** 是一个基于 Flask 和 SQLite3 的简易支付宝模拟系统，实现了多用户注册、登录、余额管理、用户间转账、详细转账记录及 JSON 历史记录导出等功能，并带有美观的 Bootstrap 金色主题前端界面。本项目所有代码、安全细节与注释规范，适合 Flask 学习、教案演示或资金跟踪管理原型开发。
@@ -51,7 +42,7 @@ python app.py
 ## 项目结构
 
 ```
-payLite/
+AlipayLite/
     app.py
     alipay.db           # 首次启动自动生成
     templates/
@@ -84,5 +75,4 @@ GET /api/records?token=YOUR_API_TOKEN
 
 ----
 
-> 作者: [wangyifan349](https://github.com/wangyifan349)
-> 欢迎 Issue、PR 讨论和学习交流！
+> 作者: [whatdo](https://github.com/wangyifan349) 欢迎 Issue、PR 讨论和学习交流！
