@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}我的转账记录{% endblock %}
+{% block content %}
+  <h2 class="gold-title text-center mt-4 mb-4">转账记录</h2>
+  <table class="table table-gold table-bordered table-hover" style="background:rgba(255,250,220,0.97)">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>对象</th>
+        <th>类型</th>
+        <th>金额</th>
+        <th>该时余额</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in records %}
+      <tr>
+        <td>{{ r['time'] }}</td>
+        <td>
+          {% if r['from_user'] == user['id'] %}
+            转给 <span class="fw-bold gold-title">{{ r['to_username'] }}</span> (ID:{{ r['to_user'] }})
+          {% else %}
+            来自 <span class="fw-bold gold-title">{{ r['from_username'] }}</span> (ID:{{ r['from_user'] }})
+          {% endif %}
+        </td>
+        <td>
+          {% if r['from_user'] == user['id'] %}
+            <span style="color: #ff9800; font-weight:bold;">转出</span>
+          {% else %}
+            <span style="color: #43a047; font-weight:bold;">收到</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if r['from_user'] == user['id'] %}
+            <span style="color:red;">-{{ r['amount'] }}</span>
+          {% else %}
+            <span style="color:#43a047;">+{{ r['amount'] }}</span>
+          {% endif %}
+        </td>
+        <td>{{ r['post_balance'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-center mt-3">
+    <span style="color:#997b33;font-size:1.1em;">
+      当前余额：<b>{{ last_balance }}</b>
+    </span>
+    <br>
+    <button class="btn btn-gold mt-3" id="exportBtn">导出所有流水JSON</button>
+    <div class="mt-2">
+      <textarea class="form-control" id="exportTextarea" rows="3" readonly style="display:none;font-size:0.95em;"></textarea>
+    </div>
+    <div class="text-secondary mt-2" style="font-size:0.93em;">
+      <b>如需第三方API导出可用token：{{ session['api_token'] }}</b><br>
+      调用方式：<br>
+      <code>GET /api/records?token=你的token</code>
+    </div>
+    <a class="btn btn-outline-secondary mt-3" href="{{ url_for('index') }}">返回首页</a>
+  </div>
+  <!-- 页面直接后台拉取API -->
+  <script>
+  document.getElementById("exportBtn").onclick = function() {
+      var token = "{{ session['api_token'] }}";
+      var url = "/api/records?token=" + token;
+      fetch(url)
+        .then(resp => resp.json())
+        .then(res => {
+          if (res && !res.error) {
+            var txt = JSON.stringify(res, null, 2);
+            document.getElementById("exportTextarea").style.display = '';
+            document.getElementById("exportTextarea").value = txt;
+          } else {
+            alert(res.error || "导出失败");
+          }
+        });
+  };
+  </script>
+{% endblock %}
