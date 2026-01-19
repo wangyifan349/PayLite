@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}我的账户{% endblock %}
+{% block content %}
+  <div class="card shadow" style="background:rgba(255,255,255,0.9)">
+    <div class="card-header text-center gold-title" style="font-size:1.4em;">
+      欢迎，{{ user['username'] }}！
+    </div>
+    <div class="card-body text-center">
+      <div class="mb-2">
+        <span class="form-label">用户ID：</span>
+        <span class="fw-bold">{{ user['id'] }}</span>
+      </div>
+      <div class="mb-3">
+        <span class="form-label">账户余额：</span>
+        <span class="fs-3 gold-title">{{ user['balance'] }}</span>
+      </div>
+      <div class="mb-3" style="font-size:0.95em;">
+        <span class="form-label">API导出token：</span>
+        <input type="text" class="form-control text-primary" style="display:inline-block;width:60%;" readonly value="{{ session['api_token'] }}">
+        <div class="form-text text-secondary text-start">可用于数据导出接口</div>
+      </div>
+      <div>
+        <a class="btn btn-gold w-100 mb-2" href="{{ url_for('transfer') }}">我要转账</a>
+        <a class="btn btn-outline-warning w-100 mb-2" href="{{ url_for('record') }}">转账记录</a>
+        <a class="btn btn-outline-secondary w-100" href="{{ url_for('logout') }}">退出登录</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
