@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}支付平台{% endblock %}</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body { background: #fffbe6;}
+      .navbar { background: linear-gradient(90deg, #f7b733 0, #fc4a1a 100%); }
+      .gold-title { color: #d4af37; letter-spacing:2px;}
+      .btn-gold { background: #d4af37; border:none; color:#222;font-weight: bold;}
+      .btn-gold:hover { background:#c6a44d; color:#111;}
+      .form-label { color:#b37d08;}
+      .table-gold th,
+      .table-gold td { border-color: #eed991;}
+      .table-gold thead th { background: #fff3d1;}
+    </style>
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand gold-title" href="{{ url_for('index') }}">支付宝模拟</a>
+        {% if session.get('user_id') %}
+          <div class="d-flex">
+            <a href="{{ url_for('index') }}" class="nav-link text-dark">首页</a>
+            <a href="{{ url_for('transfer') }}" class="nav-link text-dark">转账</a>
+            <a href="{{ url_for('record') }}" class="nav-link text-dark">记录</a>
+            <a href="{{ url_for('logout') }}" class="nav-link text-dark">退出</a>
+          </div>
+        {% endif %}
+      </div>
+    </nav>
+    <div class="container" style="max-width:600px;">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-warning" role="alert" style="background:#fff3d1;">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
