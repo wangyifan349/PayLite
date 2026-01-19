@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}登录{% endblock %}
+{% block content %}
+  <h2 class="gold-title mt-4 mb-3">用户登录</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">用户名：</label>
+      <input class="form-control" autocomplete="username" name="username" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">密码：</label>
+      <input class="form-control" autocomplete="current-password" name="password" type="password" required>
+    </div>
+    <button class="btn btn-gold w-100" type="submit">登 录</button>
+  </form>
+  <div class="text-center mt-3">
+    <a href="{{ url_for('register') }}">没有账号？去注册</a>
+  </div>
+{% endblock %}
