@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}发起转账{% endblock %}
+{% block content %}
+  <h2 class="gold-title text-center mt-4 mb-4">发起转账</h2>
+  <div class="mb-4">
+    <div class="form-label">我的余额：<span class="gold-title">{{ user['balance'] }}</span></div>
+    <div class="form-label mb-2">我的用户ID：<b>{{ user['id'] }}</b></div>
+  </div>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">对方用户ID：</label>
+      <input class="form-control" name="to_user_id" required pattern="[0-9]+">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">转账金额：</label>
+      <input class="form-control" name="amount" type="number" min="0.01" step="0.01" required>
+    </div>
+    <button class="btn btn-gold w-100" type="submit">确认转账</button>
+  </form>
+  <div class="text-center mt-3">
+    <a href="{{ url_for('index') }}">返回首页</a>
+  </div>
+{% endblock %}
